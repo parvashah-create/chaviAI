@@ -6,6 +6,8 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from collections import Counter
 import numpy as np
 from scipy.special import softmax
+
+
 class SentimentAnalyzer:
     
     def __init__(self):
