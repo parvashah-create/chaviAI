@@ -1,0 +1,9 @@
+{
+  "account"   : "vlb51766.us-east-1",
+  "user"      : "dhandeutkarsh",
+  "password"  : "Welcome123",
+  "role"      : "ACCOUNTADMIN",
+  "warehouse" : "COMPUTE_WH",
+  "database"  : "CHAAVIAI",
+  "schema"    : "PUBLIC"
+}
