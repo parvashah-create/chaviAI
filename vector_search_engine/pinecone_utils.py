@@ -3,6 +3,7 @@ import pinecone
 import openai 
 from decouple import config
 
+
 class PineconeUtils:
     def __init__(self, api_key, environment):
         self.api_key = api_key
@@ -12,7 +13,32 @@ class PineconeUtils:
         # Initialize connection to Pinecone
         pinecone.init(api_key=self.api_key, environment=self.environment)
         return pinecone.list_indexes()
-    
+
+    def create_embeddings(self, texts, embed_model):
+        """
+        Create embeddings for given texts using OpenAI's GPT-3 model.
+
+        Args:
+            texts (list): List of texts for which embeddings need to be created.
+            embed_model (str): Engine name for embedding model, e.g. "text-davinci-002".
+
+        Returns:
+            list: List of embeddings for the given texts.
+        """
+        openai.api_key =config("OPENAI_API_KEY")
+        try:
+            res = openai.Embedding.create(input=texts, engine=embed_model)
+        except openai.error.RateLimitError:
+            done = False
+            while not done:
+                time.sleep(5)
+                try:
+                    res = openai.Embedding.create(input=texts, engine=embed_model)
+                    done = True
+                except openai.error.RateLimitError:
+                    pass
+        embeds = [record['embedding'] for record in res['data']]
+        return embeds
 
     def initialize_index(self, index_name, dimensions, meta_data_config=None, similarity_metric="cosine", pods=1, replicas=1, pod_type='p1.x1'):
         """
@@ -97,4 +123,23 @@ class PineconeUtils:
         upsert_response = index.upsert(vectors=vectors)
         return upsert_response
     
+    def search_index(self, index_name,topk, vector, meta_filter=None):
+        pinecone.init(api_key=self.api_key, environment=self.environment)
+        index = pinecone.Index(index_name)
+        query_response = index.query(
+            top_k=topk,
+            include_values=False,
+            include_metadata=True,
+            vector=vector,
+            filter= meta_filter
+        )
+        return query_response
 
+
+
+# vectors = generate_embedding("dependency parsing, and noun chunking", "app.txt")
+# pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
+# # upsert_res = pinecone_utils.upsert_vectors(vectors["vectors"],"sutra-ai")
+# # print(upsert_res)
+# search = pinecone_utils.search_index("sutra-ai",2,vectors["vectors"][0]["values"])
+# print(search)

@@ -1,10 +1,15 @@
 import streamlit as st
 import openai
 from database_utils.db_utils import DbUtils
-from prompt.prompt_eng import create_prompt, generate_response
+from vector_search_engine.pinecone_utils import PineconeUtils
+from vector_search_engine.embeddings_utils import EmbeddingsUtil
 from decouple import config
 
 
+
+
+pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
+embeds_utils = EmbeddingsUtil()
 
 def create_prompt(text):
 
@@ -31,11 +36,29 @@ def generate_response(prompt):
     response = completion.choices[0].message
     return response["content"]
 
+def generative_search(query):
+    query_embeds = embeds_utils.mpnet_embeddings(query)
+    vec_search = pinecone_utils.search_index("chhavi-ai",10,query_embeds.tolist())
+    search_ids = [x['id'] for x in vec_search['matches']]
+    print(search_ids)
+    context = db_utils.get_id_text("shein_tweets",tuple(search_ids))
+    prompt = f"{context}" + f"\n Analyze the tweets and their sentiments above and give a report on how customers are recieving the product {query}"
+    response = generate_response(prompt)
+    return response
+
 db_utils = DbUtils("tweet.db")
 
 
-# st.title("ChhaviAI")
-# tweets  = db_utils.get_recent_sentiments("shein_tweets")
-# prompt  = create_prompt(tweets)
-# response  = generate_response(prompt)
-# st.write(response)
+st.title("ChhaviAI")
+
+if st.button("Generate Report"):
+    tweets  = db_utils.get_recent_sentiments("shein_tweets")
+    prompt  = create_prompt(tweets)
+    response  = generate_response(prompt)
+    st.write(response)
+
+query = st.text_input('Ask question about a specific product')
+
+if st.button("Ask"):
+    response = generative_search(query)
+    st.write(response)

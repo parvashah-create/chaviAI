@@ -33,7 +33,7 @@ pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV")
 
 def pipeline():
 
-    res_json = twitter_scrapper.search_tweets('@SHEIN_Official lang:en -is:retweet -is:reply -has:links ',100,'author_id,created_at,lang,public_metrics,entities')
+    res_json = twitter_scrapper.search_tweets('@SHEIN_Official lang:en -is:retweet -is:reply ',100,'author_id,created_at,lang,public_metrics,entities')
     latest_tweets=[]
     vectors = []
     db_id_list = db_utils.get_id_list("shein_tweets")
