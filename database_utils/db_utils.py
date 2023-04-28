@@ -66,11 +66,11 @@ class DbUtils:
             LIMIT 20
         '''
         cur.execute(query)
-        texts = cur.fetchall()
+        text = cur.fetchall()
         # Close the cursor and connection
         cur.close()
         conn.close()
-        return texts
+        return text
     
     def get_id_text(self, table_name, id_list):
         # Connect to the SQLite database
@@ -79,16 +79,15 @@ class DbUtils:
         # Query for the 10 most recent positive texts
         query = f'''
             SELECT text, sentiment_label
-            FROM  {table_name}
+            FROM {table_name}
             WHERE id IN {id_list}
         '''
         cur.execute(query)
-        texts = cur.fetchall()
+        text = cur.fetchall()
         # Close the cursor and connection
         cur.close()
         conn.close()
-        return texts
+        return text
     
-
 # db_utils = DbUtils("tweet.db")
 # print(db_utils.get_recent_sentiments("shein_tweets"))
