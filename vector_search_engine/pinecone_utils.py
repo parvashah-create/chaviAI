@@ -25,17 +25,17 @@ class PineconeUtils:
         Returns:
             list: List of embeddings for the given texts.
         """
-        openai.api_key =config("OPENAI_API_KEY")
+        _openai.api_key =config("OPENAI_API_KEY")
         try:
-            res = openai.Embedding.create(input=texts, engine=embed_model)
-        except openai.error.RateLimitError:
+            res = _openai.Embedding.create(input=texts, engine=embed_model)
+        except _openai.error.RateLimitError:
             done = False
             while not done:
                 time.sleep(5)
                 try:
-                    res = openai.Embedding.create(input=texts, engine=embed_model)
+                    res = _openai.Embedding.create(input=texts, engine=embed_model)
                     done = True
-                except openai.error.RateLimitError:
+                except _openai.error.RateLimitError:
                     pass
         embeds = [record['embedding'] for record in res['data']]
         return embeds

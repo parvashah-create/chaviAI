@@ -49,5 +49,3 @@ def preprocess_tweet(tweet):
     preprocessed_tweet = " ".join(words)
     
     return preprocessed_tweet
-
-# print(preprocess_tweet("I need @SHEIN_Official to take me to Coachella next year I’m always wearing shein to festivals 😏"))

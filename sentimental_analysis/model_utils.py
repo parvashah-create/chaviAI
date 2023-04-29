@@ -1,5 +1,5 @@
 import torch
-from transformers import BertTokenizer, BertModel, RobertaTokenizer, RobertaModel, AutoModelForSequenceClassification, AutoTokenizer
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
 from textblob import TextBlob
 from textblob.sentiments import NaiveBayesAnalyzer
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -74,16 +74,3 @@ class SentimentAnalyzer:
         most_common_sentiment = sentiment_counts.most_common(1)[0][0]
         return most_common_sentiment
 
-
-# senti_model = SentimentAnalyzer()
-# text = "['new iphone suck hate', 'sucks', 'hate']"
-# text = "@meta super frustrated access husband account take solution help contact form work nightmare"
-# text = "@meta is awesome and I love using it."
-# text = "sun sets in the west"
-# text = "['frustrate', 'access', 'husband', 'account', 'take', 'solution', 'help', 'contact', 'form', 'work', 'nightmare']"
-# text = """this is honestly 🔥🔥🔥"""
-# print(text)
-# print(senti_model.analyze_sentiment(text))
-
-
-# {'bert_sentiment': 0.0011509765172377229, 'roberta_sentiment': 0.005614308640360832, 'roberta_tweet_sentiment': 'neg', 'textblob_sentiment': -0.18333333333333332, 'naive_bayes_sentiment': 'pos', 'vader_sentiment': 'neu'}

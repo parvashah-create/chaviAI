@@ -53,7 +53,7 @@ class DbUtils:
         # Return the list of 'id' values
         return id_list
     
-    def get_recent_sentiments(self, table_name):
+    def get_recent_sentiments(self, table_name, username):
         # Connect to the SQLite database
         conn , cur = self.get_db() 
 
@@ -61,9 +61,9 @@ class DbUtils:
         query = f'''
             SELECT text, sentiment_label
             FROM  {table_name}
-            WHERE sentiment_label IN ('pos', 'neg')
+            WHERE sentiment_label IN ('pos', 'neg') AND username IN ('{username}')
             ORDER BY created_at DESC
-            LIMIT 20
+            LIMIT 50
         '''
         cur.execute(query)
         texts = cur.fetchall()
@@ -90,5 +90,3 @@ class DbUtils:
         return texts
     
 
-# db_utils = DbUtils("tweet.db")
-# print(db_utils.get_recent_sentiments("shein_tweets"))
