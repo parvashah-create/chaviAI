@@ -37,7 +37,7 @@ PINECONE_API_KEY=<your_pinecone_api_key>
 3. To perform a cosine similarity search and retrieve relevant tweets for a specific product, run product_evaluation.py.
 
 ## Credits
-This project was created by [Your Name]. It was made possible thanks to the following libraries and APIs:
+This project was created by [Utkarsh Dhande](https://github.com/utkarshdhande) and [Parva Shah](https://github.com/parvashah-create). It was made possible thanks to the following libraries and APIs:
 
 - Tweepy
 - TextBlob
