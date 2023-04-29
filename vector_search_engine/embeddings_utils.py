@@ -20,17 +20,17 @@ class EmbeddingsUtil:
         Returns:
             list: List of embeddings for the given texts.
         """
-        _openai.api_key =config("OPENAI_API_KEY")
+        openai.api_key =config("OPENAI_API_KEY")
         try:
-            res = _openai.Embedding.create(input=texts, engine=embed_model)
-        except _openai.error.RateLimitError:
+            res = openai.Embedding.create(input=texts, engine=embed_model)
+        except openai.error.RateLimitError:
             done = False
             while not done:
                 time.sleep(5)
                 try:
-                    res = _openai.Embedding.create(input=texts, engine=embed_model)
+                    res = openai.Embedding.create(input=texts, engine=embed_model)
                     done = True
-                except _openai.error.RateLimitError:
+                except openai.error.RateLimitError:
                     pass
         embeds = [record['embedding'] for record in res['data']]
         return embeds
@@ -43,6 +43,3 @@ class EmbeddingsUtil:
         return embedding
     
 
-
-# embeds = EmbeddingsUtil()
-# print(embeds.mpnet_embeddings("This is a good day"))

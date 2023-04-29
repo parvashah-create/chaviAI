@@ -3,12 +3,12 @@ from database_utils.db_utils import DbUtils
 from vector_search_engine.pinecone_utils import PineconeUtils
 from vector_search_engine.embeddings_utils import EmbeddingsUtil
 from decouple import config
+import os
 
 
 
 
-
-pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
+pinecone_utils = PineconeUtils(os.getenv("PINECONE_API_KEY"),os.getenv("PINECONE_ENV"))
 embeds_utils = EmbeddingsUtil()
 db_utils = DbUtils("tweet.db")
 
@@ -26,7 +26,7 @@ def create_prompt(text):
     
 
 def generate_response(prompt):
-    openai.api_key = config("OPENAI_API_KEY")
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     completion = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[

@@ -19,7 +19,6 @@ class TwitterUtils:
 
     def connect_to_endpoint(self, url, params):
         response = requests.get(url, auth=self.bearer_oauth, params=params)
-        print(response.status_code)
         if response.status_code != 200:
             raise Exception(response.status_code, response.text)
         return response.json()

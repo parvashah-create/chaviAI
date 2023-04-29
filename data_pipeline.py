@@ -6,13 +6,14 @@ from vector_search_engine.embeddings_utils import EmbeddingsUtil
 from vector_search_engine.pinecone_utils import PineconeUtils
 from decouple import config
 import pandas as pd
+import os
 import sqlite3
 
-twitter_scrapper = TwitterUtils(config("TWITTER_BEARER_TOKEN"))
+twitter_scrapper = TwitterUtils(os.getenv("TWITTER_BEARER_TOKEN"))
 db_utils = DbUtils("tweet.db")
 senti_model = SentimentAnalyzer()
 embeds = EmbeddingsUtil()
-pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
+pinecone_utils = PineconeUtils(os.getenv("PINECONE_API_KEY"),os.getenv("PINECONE_ENV"))
 
 
 
@@ -30,7 +31,7 @@ def pipeline(username="@Meta"):
             embed = embeds.mpnet_embeddings(text)
             vectors.append({'id':i["id"], 'values':embed, 'metadata':{'created_at': i["created_at"],'impression_count':i["public_metrics"]["impression_count"],'like_count':i["public_metrics"]["like_count"],'sentiment_label':sentiment_label}})
             latest_tweets.append((i["id"],i["author_id"],username[1:],text, i["public_metrics"]["impression_count"],i["public_metrics"]["like_count"],sentiment_label,i["created_at"]))
-    print(latest_tweets)
+    
     if latest_tweets and vectors:
         pinecone_utils.upsert_vectors(vectors,"chhavi-ai")
         latest_tweets_df = pd.DataFrame(latest_tweets,columns=["id","author_id","username","text","impression_count","like_count","sentiment_label","created_at"])

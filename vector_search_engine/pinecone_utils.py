@@ -14,32 +14,6 @@ class PineconeUtils:
         pinecone.init(api_key=self.api_key, environment=self.environment)
         return pinecone.list_indexes()
 
-    def create_embeddings(self, texts, embed_model):
-        """
-        Create embeddings for given texts using OpenAI's GPT-3 model.
-
-        Args:
-            texts (list): List of texts for which embeddings need to be created.
-            embed_model (str): Engine name for embedding model, e.g. "text-davinci-002".
-
-        Returns:
-            list: List of embeddings for the given texts.
-        """
-        _openai.api_key =config("OPENAI_API_KEY")
-        try:
-            res = _openai.Embedding.create(input=texts, engine=embed_model)
-        except _openai.error.RateLimitError:
-            done = False
-            while not done:
-                time.sleep(5)
-                try:
-                    res = _openai.Embedding.create(input=texts, engine=embed_model)
-                    done = True
-                except _openai.error.RateLimitError:
-                    pass
-        embeds = [record['embedding'] for record in res['data']]
-        return embeds
-
     def initialize_index(self, index_name, dimensions, meta_data_config=None, similarity_metric="cosine", pods=1, replicas=1, pod_type='p1.x1'):
         """
         Initialize connection to Pinecone and create an index if it doesn't exist.
@@ -135,11 +109,3 @@ class PineconeUtils:
         )
         return query_response
 
-
-
-# vectors = generate_embedding("dependency parsing, and noun chunking", "app.txt")
-# pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
-# # upsert_res = pinecone_utils.upsert_vectors(vectors["vectors"],"sutra-ai")
-# # print(upsert_res)
-# search = pinecone_utils.search_index("sutra-ai",2,vectors["vectors"][0]["values"])
-# print(search)

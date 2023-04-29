@@ -28,9 +28,12 @@ def read_root():
 @app.get("/brand-image-report/{username}")
 def brand_image_report(username):
     new_tweets = pipeline(username)
-    tweets  = db_utils.get_recent_sentiments("tweets",username)
-    prompt  = create_prompt(tweets)
-    response  = generate_response(prompt)
+    if new_tweets:
+        tweets  = db_utils.get_recent_sentiments("tweets",username)
+        prompt  = create_prompt(tweets)
+        response  = generate_response(prompt)
+    else:
+        response = "Pipeline error!"    
     return {"response":response}
 
 @app.post("/vector-search/")
