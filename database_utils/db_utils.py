@@ -63,7 +63,7 @@ class DbUtils:
             FROM  {table_name}
             WHERE sentiment_label IN ('pos', 'neg') AND username IN ('{username}')
             ORDER BY created_at DESC
-            LIMIT 50
+            LIMIT 20
         '''
         cur.execute(query)
         texts = cur.fetchall()

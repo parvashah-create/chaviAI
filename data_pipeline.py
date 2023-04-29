@@ -20,7 +20,7 @@ pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV")
 
 def pipeline(username="@Meta"):
 
-    res_json = twitter_scrapper.search_tweets(f'{username} lang:en -is:retweet -is:reply ',10,'author_id,created_at,lang,public_metrics,entities')
+    res_json = twitter_scrapper.search_tweets(f'@{username} lang:en -is:retweet -is:reply ',10,'author_id,created_at,lang,public_metrics,entities')
     latest_tweets=[]
     vectors = []
     db_id_list = db_utils.get_id_list("tweets")
@@ -30,7 +30,7 @@ def pipeline(username="@Meta"):
             sentiment_label = senti_model.analyze_sentiment(text)
             embed = embeds.mpnet_embeddings(text)
             vectors.append({'id':i["id"], 'values':embed, 'metadata':{'created_at': i["created_at"],'impression_count':i["public_metrics"]["impression_count"],'like_count':i["public_metrics"]["like_count"],'sentiment_label':sentiment_label}})
-            latest_tweets.append((i["id"],i["author_id"],username[1:],text, i["public_metrics"]["impression_count"],i["public_metrics"]["like_count"],sentiment_label,i["created_at"]))
+            latest_tweets.append((i["id"],i["author_id"],username,text, i["public_metrics"]["impression_count"],i["public_metrics"]["like_count"],sentiment_label,i["created_at"]))
     
     if latest_tweets and vectors:
         pinecone_utils.upsert_vectors(vectors,"chhavi-ai")
