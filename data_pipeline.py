@@ -9,11 +9,11 @@ import pandas as pd
 import os
 import sqlite3
 
-twitter_scrapper = TwitterUtils(os.getenv("TWITTER_BEARER_TOKEN"))
+twitter_scrapper = TwitterUtils(config("TWITTER_BEARER_TOKEN"))
 db_utils = DbUtils("tweet.db")
 senti_model = SentimentAnalyzer()
 embeds = EmbeddingsUtil()
-pinecone_utils = PineconeUtils(os.getenv("PINECONE_API_KEY"),os.getenv("PINECONE_ENV"))
+pinecone_utils = PineconeUtils(config("PINECONE_API_KEY"),config("PINECONE_ENV"))
 
 
 
