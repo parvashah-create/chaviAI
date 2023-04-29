@@ -43,7 +43,7 @@ PINECONE_API_KEY=<your_pinecone_api_key>
 [Sentimental-Analysis-Brand-Image-Management - Application](https://parvashah-create-chhavi-streamlit-streamlitapp-5lu7d8.streamlit.app/)
 
 ## Video Demonstration
-[Sentimental-Analysis-Brand-Image-Management - Video] (https://www.loom.com/share/51edb70b26f64e239bb97a74352b026d)
+![Sentimental-Analysis-Brand-Image-Management - Video](https://www.loom.com/share/51edb70b26f64e239bb97a74352b026d)
 
 ## Credits
 This project was created by [Utkarsh Dhande](https://github.com/utkarshdhande) and [Parva Shah](https://github.com/parvashah-create). It was made possible thanks to the following libraries and APIs:
