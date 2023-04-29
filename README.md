@@ -36,6 +36,12 @@ PINECONE_API_KEY=<your_pinecone_api_key>
 
 3. To perform a cosine similarity search and retrieve relevant tweets for a specific product, run product_evaluation.py.
 
+## Documentation
+[Sentimental-Analysis-Brand-Image-Management - Report](https://codelabs-preview.appspot.com/?file_id=https://docs.google.com/document/d/1gUDWp26tWl7Pfkdf3xpmKN5onOkNFOuHQw6HxB__7ag/edit?usp=sharing#0)
+
+## Streamlit Application
+[Sentimental-Analysis-Brand-Image-Management - Application](https://parvashah-create-chhavi-streamlit-streamlitapp-5lu7d8.streamlit.app/)
+
 ## Credits
 This project was created by [Utkarsh Dhande](https://github.com/utkarshdhande) and [Parva Shah](https://github.com/parvashah-create). It was made possible thanks to the following libraries and APIs:
 
