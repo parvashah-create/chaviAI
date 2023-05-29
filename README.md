@@ -39,7 +39,7 @@ PINECONE_API_KEY=<your_pinecone_api_key>
 ## Resources
 
 - Documentation - [Sentimental-Analysis-Brand-Image-Management - Report](https://codelabs-preview.appspot.com/?file_id=https://docs.google.com/document/d/1gUDWp26tWl7Pfkdf3xpmKN5onOkNFOuHQw6HxB__7ag/edit?usp=sharing#0)
-- Streamlit Application - [Sentimental-Analysis-Brand-Image-Management - Application](https://parvashah-create-chhavi-streamlit-streamlitapp-5lu7d8.streamlit.app/)
+- Streamlit Application - [Sentimental-Analysis-Brand-Image-Management - Application](https://parvashah-create-chhavi-streamlit-app-7izrgq.streamlit.app/)
 - Video Demonstration - [Sentimental-Analysis-Brand-Image-Management - Video](https://www.loom.com/share/51edb70b26f64e239bb97a74352b026d)
 
 ## Credits
