@@ -1,5 +1,5 @@
 # ChhaviAI  
-Brand Image Solution Management [Demo](https://parvashah-create-chhavi-streamlit-app-7izrgq.streamlit.app/)
+Brand Image Solution Management: [Demo](https://parvashah-create-chhavi-streamlit-app-7izrgq.streamlit.app/)
 
 ## Description
 This project is designed to extract recent tweets, preprocess them, pass them through a sentimental analysis model to extract sentiment, and store the results in a SQLite database. It simultaneously generates embeddings to store in Pinecone vector database. The project extracts the most recent positive and negative tweets from the SQLite database, passes them as context to ChatGPT, and produces a brand image report.
